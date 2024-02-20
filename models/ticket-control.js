@@ -4,6 +4,15 @@ import path from 'path';
 
 import data from '../db/data.json' assert { type: "json" };
 
+class Ticket {
+
+    constructor(numero, escritorio) {
+        this.numero = numero;
+        this.escritorio = escritorio;  
+    }
+
+}
+
 export class TicketControl {
 
     constructor(){
@@ -46,6 +55,33 @@ export class TicketControl {
         const dbPath = path.join(__dirname, '../db/data.json');
 
         fs.writeFileSync(dbPath, JSON.stringify(this.toJson));
+    }
+
+    siguiente(){
+        this.ultimo += 1;
+        const ticket = new Ticket(this.ultimo, null);
+        this.tickets.push(ticket);
+
+        this.guardarDB();
+        return 'Ticket' + ticket.numero;
+    }
+
+    atenderTicket(escritorio){
+        if(this.tickets.length === 0){
+            return null;
+        }
+        const ticket = this.tickets.shift();
+        ticket.escritorio = escritorio;
+
+        this.ultimos4.unshift(ticket);
+
+        if(this.ultimos4 > 4){
+            this.ultimos4.splice(-1,1);
+        }
+
+        // console.log(this.ultimos4);
+        this.guardarDB();
+        return ticket;
     }
 
 }
