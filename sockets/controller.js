@@ -1,7 +1,7 @@
 import { TicketControl } from "../models/ticket-control.js";
 
 
-const ticketsControl = new TicketControl();
+const ticketControl = new TicketControl();
 
 export const socketController = (socket) => {
 
