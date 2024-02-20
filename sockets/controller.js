@@ -5,18 +5,14 @@ const ticketControl = new TicketControl();
 
 export const socketController = (socket) => {
 
-    // console.log('Client connected', socket.id);
-    
-    // socket.on('disconnect', () => {
-    //     console.log('Client disconnected', socket.id);
-    // });
+    socket.emit('ultimo-ticket', ticketControl.ultimo);
 
-    socket.on('enviar-mensaje', ( payload, callback ) => {
+    socket.on('siguiente-ticket', ( payload, callback ) => {
 
-        const id = 123456;
-        callback( id );
+        const siguiente = ticketControl.siguiente();
+        callback(siguiente);
 
-        socket.broadcast.emit('enviar-mensaje', payload);
+        //TODO: Notificar un nuevo Ticket a asignar
     
     });
 }
