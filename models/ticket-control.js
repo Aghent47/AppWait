@@ -75,8 +75,8 @@ export class TicketControl {
 
         this.ultimos4.unshift(ticket);
 
-        if(this.ultimos4 > 4){
-            this.ultimos4.splice(-1,1);
+        if(this.ultimos4.length > 4){
+            this.ultimos4.splice(4);
         }
 
         // console.log(this.ultimos4);
